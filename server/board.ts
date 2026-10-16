@@ -1,10 +1,10 @@
-import type { PaseoApi } from "@getpaseo/client";
 import { randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
 type Label = { name: string; color: "violet" | "sky" | "emerald" | "orange" | "pink" | "indigo" | "teal" | "red" | "amber" | "blue" };
+type BoardPaseoApi = { workspaces: { ref(id: string): { refresh(): Promise<{ labels?: string[] } | null | undefined> } } };
 type Icon = { data: string; mimeType: string } | null;
 type Message = { type: string; payload?: Record<string, unknown> };
 type Envelope = { type: string; message?: Message; reason?: string };
@@ -133,7 +133,7 @@ export async function getBoardMeta(projectIds: string[]) {
   return { labels, icons };
 }
 
-export async function moveBoardCard(input: { workspaceId: string; fromLabel: string | null; toLabel: string | null }, paseo: PaseoApi) {
+export async function moveBoardCard(input: { workspaceId: string; fromLabel: string | null; toLabel: string | null }, paseo: BoardPaseoApi) {
   const workspace = await paseo.workspaces.ref(input.workspaceId).refresh();
   if (!workspace) throw new Error("Workspace no longer exists");
   const currentLabels = workspace.labels ?? [];
@@ -159,7 +159,7 @@ export async function moveBoardCard(input: { workspaceId: string; fromLabel: str
   return { workspaceId: input.workspaceId, labels: updated };
 }
 
-export async function toggleBoardLabel(input: { workspaceId: string; labelName: string; assigned: boolean }, paseo: PaseoApi) {
+export async function toggleBoardLabel(input: { workspaceId: string; labelName: string; assigned: boolean }, paseo: BoardPaseoApi) {
   const workspace = await paseo.workspaces.ref(input.workspaceId).refresh();
   if (!workspace) throw new Error("Workspace no longer exists");
   const label = (await listLabels()).find((entry) => entry.name === input.labelName);
@@ -171,7 +171,7 @@ export async function toggleBoardLabel(input: { workspaceId: string; labelName: 
   return { labels: response.workspaceLabels };
 }
 
-export async function boardAction(input: { workspaceId: string; action: "pin" | "unpin" | "mark_unread" }, paseo: PaseoApi) {
+export async function boardAction(input: { workspaceId: string; action: "pin" | "unpin" | "mark_unread" }, paseo: BoardPaseoApi) {
   const workspace = await paseo.workspaces.ref(input.workspaceId).refresh();
   if (!workspace) throw new Error("Workspace no longer exists");
   const client = await bridge();

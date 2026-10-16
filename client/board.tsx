@@ -1,4 +1,3 @@
-import type { PaseoAgentListResult, PaseoWorkspace } from "@getpaseo/client";
 import type { PluginScreenProps } from "@getpaseo/plugin/client";
 import { getPaseoClient, useHosts, usePaseo, useRpc, useSettings } from "@getpaseo/plugin/client";
 import { copyText, Modal, TextInput as ModalTextInput } from "@getpaseo/plugin/client/react-native";
@@ -10,6 +9,8 @@ import { closeBoard, installBoardDrag } from "./web";
 
 const COLUMN_WIDTH = 280;
 const UNLABELED = "Unlabeled";
+type PaseoWorkspace = Awaited<ReturnType<ReturnType<typeof getPaseoClient>["workspaces"]["list"]>>["entries"][number];
+type PaseoAgentListResult = Awaited<ReturnType<ReturnType<typeof getPaseoClient>["agents"]["list"]>>;
 type BoardWorkspace = PaseoWorkspace & { serverId: string; hostLabel: string };
 const cardKey = (workspace: BoardWorkspace) => JSON.stringify([workspace.serverId, workspace.id]);
 const projectKey = (workspace: BoardWorkspace) => JSON.stringify([workspace.serverId, workspace.projectId]);
