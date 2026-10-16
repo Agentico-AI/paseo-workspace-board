@@ -1,0 +1,19 @@
+{
+  "name": "paseo-workspace-board",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Browse Paseo workspaces by label and status, filter across hosts and projects, and save board views.",
+  "files": ["paseo-plugin.json", "OVERVIEW.md", "README.md", "LICENSE", "index.client.tsx", "index.server.ts", "client/", "server/", "shared/", "assets/"],
+  "scripts": { "typecheck": "tsc --noEmit" },
+  "devDependencies": {
+    "@getpaseo/plugin": "0.11.1",
+    "@tanstack/react-query": "^5.90.11",
+    "@types/node": "^22.20.5",
+    "@types/react": "~19.2.0",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "typescript": "^5.9.3",
+    "zod": "^4.4.3"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "id": "workspace-board",
+  "name": "Workspace Board",
+  "description": "Browse Paseo workspaces by label and status, filter across hosts and projects, and save board views.",
+  "media": ["assets/board-sample.png"],
+  "requirements": { "paseo": ">=0.11.2" }
+}
