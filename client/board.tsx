@@ -20,10 +20,10 @@ const labelColors: Record<string, string> = {
 };
 const groups = [
   { id: "pinned", title: "Pinned" },
-  { id: "attention", title: "Ready to review" },
   { id: "needs_input", title: "Needs input" },
-  { id: "running", title: "Working" },
   { id: "failed", title: "Error" },
+  { id: "running", title: "Working" },
+  { id: "attention", title: "Ready to review" },
   { id: "done", title: "Done" },
 ] as const;
 
